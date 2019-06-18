@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-skyblue">
+  <div class="col text-right">
+    <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
+      <button
+        class="btn  mr-2 btn-white"
+        id="dropdownManual"
+        ngbDropdownAnchor
+        (focus)="myDrop.open()">
+        Sort Profiles
+      </button>
+      <div ngbDropdownMenu aria-labelledby="dropdownManual">
+        <button ngbDropdownItem>Sort By Name</button>
+        <button ngbDropdownItem>Sort by Repositories</button>
+        <button ngbDropdownItem>Sort By XYZ</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="input-group">
+      <input #searchInput type="search" placeholder="Search..." id="search" class="form-control ds-input">
+    </div>
+  </div>
+</nav>
