@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppComponent } from './app.component';
 import { GithubSearchComponent } from './github-search/github-search.component';
@@ -23,6 +24,7 @@ import { FullNamePipe } from './pipes/full-name.pipe';
     AppRoutingModule,
     BrowserModule,
     NgbModule,
+    NgxSpinnerModule,
     HttpClientModule
   ],
   providers: [SearchService],

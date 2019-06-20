@@ -17,7 +17,7 @@ export class SearchService {
 
   getGitHubUsers(searchString: string): Observable<any> {
     return this.http.get<any>(`${this.searchUrl}${searchString}&client_id=${Config.client_id}
-    &client_secret=${Config.client_secret}&per_page=10`);
+    &client_secret=${Config.client_secret}&per_page=100`);
   }
 
   getGitHubRepos(userName: string): Observable<any> {
