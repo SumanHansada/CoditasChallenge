@@ -52,11 +52,10 @@
             <br />
             <span>Location: {{user?.id | location: gitHubUserDetails}}</span>
           </div>
-          <div id="detailsButton" class="col text-right" style="float: right">
-            <button
+          <div class="col text-right buttonGroup" style="float: right">
+            <button id="detailsButton-{{i}}"
               class="btn btn-outline-primary"
-              (click)="acc.toggle('toggle'); getReposData(user.login, $event);"
-            >
+              (click)="checkCollapse(i); getReposData(user.login, $event);">
               Details
             </button>
           </div>
@@ -64,36 +63,37 @@
       </div>
     </div>
     <div class="extraDetailsSection">
-      <ngb-accordion #acc="ngbAccordion">
-        <ngb-panel id="toggle">          
-          <ng-template  ngbPanelContent>
-            <table class="table table-striped">
-              <thead>
-                <th>Repository Name</th>
-                <th>Programming Language</th>
-                <th>Open Issues</th>
-                <th>Followers</th>
-                <th>Fork Count</th>
-              </thead>
-              <tbody>
-                <tr *ngFor="let repo of gitHubRepos">
-                  <td>{{repo.name}}</td>
-                  <td>{{(repo.language === null)?"N/A": repo.language}}</td>
-                  <td class="centeredText">{{repo.open_issues_count}}</td>
-                  <td class="centeredText">{{repo.watchers}}</td>
-                  <td class="centeredText">{{repo.forks_count}}</td>
-                </tr>                
-              </tbody>
-            </table>
-          </ng-template>
-        </ngb-panel>
-      </ngb-accordion>
+        <div id="collapseDetails" [ngbCollapse]="isCollapsed[i]">
+            <div class="card">
+              <div class="card-body">
+                  <table class="table table-striped">
+                      <thead>
+                        <th>Repository Name</th>
+                        <th>Programming Language</th>
+                        <th>Open Issues</th>
+                        <th>Followers</th>
+                        <th>Fork Count</th>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let repo of gitHubRepos">
+                          <td>{{repo.name}}</td>
+                          <td>{{(repo.language === null)?"N/A": repo.language}}</td>
+                          <td class="centeredText">{{repo.open_issues_count}}</td>
+                          <td class="centeredText">{{repo.watchers}}</td>
+                          <td class="centeredText">{{repo.forks_count}}</td>
+                        </tr>                
+                      </tbody>
+                    </table>  
+              </div>
+            </div>
+          </div>
     </div>
   </div>
   <div id="pagination">
     <ngb-pagination
     [(page)]="page"
     [pageSize]="pageSize"
-    [collectionSize]="gitHubUsers.length"></ngb-pagination>
+    [collectionSize]="gitHubUsers.length"
+    (pageChange)="pageChange($event)"></ngb-pagination>
   </div>
 </div>
