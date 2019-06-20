@@ -9,6 +9,9 @@ export class FullNamePipe implements PipeTransform {
         if (userData) {
             for (const data of userData) {
                 if (data.id === userId) {
+                    if (data.name === null) {
+                        return 'N/A';
+                    }
                     return data.name;
                 }
             }

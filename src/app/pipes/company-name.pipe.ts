@@ -9,6 +9,9 @@ export class CompanyNamePipe implements PipeTransform {
         if (userData) {
             for (const data of userData) {
                 if (data.id === userId) {
+                    if (data.company === null) {
+                        return 'N/A';
+                    }
                     return data.company;
                 }
             }

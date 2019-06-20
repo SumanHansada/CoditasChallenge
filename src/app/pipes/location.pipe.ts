@@ -9,6 +9,9 @@ export class LocationPipe implements PipeTransform {
         if (userData) {
             for (const data of userData) {
                 if (data.id === userId) {
+                    if (data.location === null) {
+                        return 'N/A';
+                    }
                     return data.location;
                 }
             }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from '../services/search.service';
-import { Observable, forkJoin } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-github-search',
@@ -17,7 +17,7 @@ export class GithubSearchComponent implements OnInit {
   gitHubUsers: any;
   gitHubUserDetails: any[];
   gitHubRepos: any[];
-  constructor(private searchService: SearchService) {
+  constructor(private searchService: SearchService, private spinner: NgxSpinnerService) {
     this.isCollapsed = [];
     this.gitHubUserDetails = [];
     this.gitHubRepos = [];
@@ -26,6 +26,7 @@ export class GithubSearchComponent implements OnInit {
   }
 
   onKeyUp(searchKey: string) {
+    this.spinner.show('fullScreenSpinner');
     console.log('Search Query :- ' + searchKey);
     this.searchService.getGitHubUsers(searchKey)
     .subscribe(result => {
@@ -39,46 +40,95 @@ export class GithubSearchComponent implements OnInit {
         this.searchService.getGitHubUserDetails(user.login)
           .subscribe(userData => {
             this.gitHubUserDetails.push(userData);
+            if (this.gitHubUserDetails.length === this.gitHubUsers.length) {
+              this.spinner.hide('fullScreenSpinner');
+            }
           });
         });
       }
     });
   }
   getReposData(userName: string, event: any) {
+    this.spinner.show('repoSpinner');
     this.searchService.getGitHubRepos(userName)
     .subscribe(result => {
       this.gitHubRepos = result;
-      console.log(this.gitHubRepos);
+      this.spinner.hide('repoSpinner');
     });
   }
   sortByNameAscending() {
-    this.gitHubUsers.sort((a, b) => {
-      const nameA = a.login.toUpperCase();
-      const nameB = b.login.toUpperCase();
+    if (!this.gitHubUsers || this.gitHubUsers.length === 0) {
+      console.log('No Data! Perform the Search First..');
+      return;
+    }
+    this.gitHubUsers.sort((a: any, b: any) => {
+      console.log(a.login, b.login);
+      const nameA = (this.gitHubUserDetails.find(user => user.login === a.login).name === null)
+      ? '' : this.gitHubUserDetails.find(user => user.login === a.login).name.toUpperCase();
+      const nameB = (this.gitHubUserDetails.find(user => user.login === b.login).name === null)
+      ? '' : this.gitHubUserDetails.find(user => user.login === b.login).name.toUpperCase();
       if (nameA < nameB) {
         return -1;
       }
       if (nameA > nameB) {
         return 1;
+      }
+      return 0;
+    });
+  }
+
+  sortByNameDescending() {
+    if (!this.gitHubUsers || this.gitHubUsers.length === 0) {
+      console.log('No Data! Perform the Search First..');
+      return;
+    }
+    this.gitHubUsers.sort((a: any, b: any) => {
+      console.log(a.login, b.login);
+      const nameA = (this.gitHubUserDetails.find(user => user.login === a.login).name === null)
+      ? '' : this.gitHubUserDetails.find(user => user.login === a.login).name.toUpperCase();
+      const nameB = (this.gitHubUserDetails.find(user => user.login === b.login).name === null)
+      ? '' : this.gitHubUserDetails.find(user => user.login === b.login).name.toUpperCase();
+      if (nameA < nameB) {
+        return 1;
+      }
+      if (nameA > nameB) {
+        return -1;
       }
       return 0;
     });
     console.log(this.gitHubUsers);
   }
 
-  sortByNameDescending() {
-    this.gitHubUsers.sort((a, b) => {
-      const nameA = a.login.toUpperCase();
-      const nameB = b.login.toUpperCase();
-      if (nameA < nameB) {
+  sortByIncreasingScore() {
+    if (!this.gitHubUsers || this.gitHubUsers.length === 0) {
+      console.log('No Data! Perform the Search First..');
+      return;
+    }
+    this.gitHubUsers.sort((a: any, b: any) => {
+      if (a.score < b.score) {
+        return -1;
+      }
+      if (a.score > b.score) {
         return 1;
       }
-      if (nameA > nameB) {
+      return 0;
+    });
+  }
+
+  sortByDecreasingScore() {
+    if (!this.gitHubUsers || this.gitHubUsers.length === 0) {
+      console.log('No Data! Perform the Search First..');
+      return;
+    }
+    this.gitHubUsers.sort((a: any, b: any) => {
+      if (a.score < b.score) {
+        return 1;
+      }
+      if (a.score > b.score) {
         return -1;
       }
       return 0;
     });
-    console.log(this.gitHubUsers);
   }
 
   checkCollapse(index: number) {

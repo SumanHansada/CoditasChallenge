@@ -90,3 +90,19 @@ body {
 a {
     cursor: pointer;
 }
+
+#resultLimitAlert {
+    color: crimson;
+}
+
+pre {
+    font-family: 'Lato';
+    font-size: 60pt;
+    text-align: center;
+    text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
+    color:#f0f0f0;
+}
