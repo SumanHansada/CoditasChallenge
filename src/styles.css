@@ -3,6 +3,11 @@
 
 body {
     font-family: 'Lato', sans-serif;
+    background: #f0f0f0;
+}
+
+.container {
+    width: 900px;
 }
 
 .bg-skyblue{
@@ -14,6 +19,10 @@ body {
     color: black;
 }
 
+#totalResults{
+    margin: 10px;
+}
+
 .profilePic {
     height: 60px;
     width: 60px;
@@ -22,13 +31,58 @@ body {
 
 .gitUsers {
     display: flex;
-    height: 100px;
-    border: solid 1px black;
+    height: auto;
     padding: 10px;
-    margin: 10px;
-    border-radius: 5px;
+}
+
+.gitHubData{
+    box-sizing: border-box;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);
+    margin: 20px 10px;
+    border-radius: 3px;
+    background: white;
 }
 
 .thumbnailSection {
     width: 100px;
+}
+
+.profileDetailsSection{
+    width: 100%;
+}
+
+.dataSection{
+    display: flex;
+}
+
+#detailsButton{
+    display: block;
+    margin: 5px auto;
+}
+
+.extraDetailsSection {
+    padding: 0px;
+}
+
+.card-header{
+    height: 0px;
+    padding: 0px;
+}
+
+.card-body{
+    padding: 0px;
+    border: none;
+}
+
+.card{
+    border: none;
+}
+
+#pagination {
+    float: right;
+    margin: 20px 10px;
+}
+
+.centeredText {
+    text-align: center;
 }
