@@ -45,7 +45,7 @@
       </div>
       <div class="profileDetailsSection">
         <h3>{{ user?.id | fullName: gitHubUserDetails }}</h3>
-        <h6>Profile URL: {{ user?.html_url }}</h6>
+        <h6>Profile URL: <a [attr.href]="user.html_url" target="_blank">{{ user?.html_url }}</a></h6>
         <div class="dataSection">
           <div>
             <span>Company: {{user?.id | companyName: gitHubUserDetails}}</span>

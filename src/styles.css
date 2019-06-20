@@ -86,3 +86,7 @@ body {
 .centeredText {
     text-align: center;
 }
+
+a {
+    cursor: pointer;
+}
