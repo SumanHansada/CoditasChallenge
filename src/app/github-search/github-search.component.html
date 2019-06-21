@@ -117,9 +117,9 @@
             <ngx-spinner
               [fullScreen]="false"
               type="line-scale"
-              size="medium"
+              size="small"
               name="repoSpinner"
-              ><p class="loading">Loading GitHub Repositories 🗃️...</p>
+              >
             </ngx-spinner>
           </div>
         </div>
@@ -131,9 +131,7 @@
       [(page)]="page"
       [pageSize]="pageSize"
       [collectionSize]="gitHubUsers.length"
-      [maxSize]="7"
-      [boundaryLinks]="true"
-      [ellipses]="false"
+      [maxSize]="5"
       (pageChange)="pageChange($event)"
     ></ngb-pagination>
   </div>
@@ -153,5 +151,8 @@
   name="fullScreenSpinner"
   [fullScreen]="true"
 >
-  <p style="color: white">Searching Lots of GitHub Users 😴...</p>
+  <br />
+  <p style="color: white; text-align: center">
+    Searching Lots of GitHub Users 😴...
+  </p>
 </ngx-spinner>
