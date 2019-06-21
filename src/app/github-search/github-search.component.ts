@@ -12,10 +12,10 @@ export class GithubSearchComponent implements OnInit {
   currentPage = 1;
   pageSize = 5;
   isCollapsed: boolean[];
-  gitHubDataFromAPI: any;
+  gitHubDataFromAPI: any; // Actual JSON object from API
   totalResults: number;
-  gitHubUsers: any;
-  gitHubUserDetails: any[];
+  gitHubUsers: any; // Array of GitHub users that matches with search query
+  gitHubUserDetails: any[]; // Array of extra details of each GitHub user from search query
   gitHubRepos: any[];
   constructor(private searchService: SearchService, private spinner: NgxSpinnerService) {
     this.isCollapsed = [];
@@ -25,6 +25,7 @@ export class GithubSearchComponent implements OnInit {
   ngOnInit() {
   }
 
+  // Function to get the data from search query and extra details of all users in search query
   onKeyUp(searchKey: string) {
     this.spinner.show('fullScreenSpinner');
     console.log('Search Query :- ' + searchKey);
@@ -48,6 +49,7 @@ export class GithubSearchComponent implements OnInit {
       }
     });
   }
+  // Function to get the repository data of each user
   getReposData(userName: string, event: any) {
     this.spinner.show('repoSpinner');
     this.searchService.getGitHubRepos(userName)
@@ -56,13 +58,13 @@ export class GithubSearchComponent implements OnInit {
       this.spinner.hide('repoSpinner');
     });
   }
+  // Function to sort the name by ascending order
   sortByNameAscending() {
     if (!this.gitHubUsers || this.gitHubUsers.length === 0) {
       console.log('No Data! Perform the Search First..');
       return;
     }
     this.gitHubUsers.sort((a: any, b: any) => {
-      console.log(a.login, b.login);
       const nameA = (this.gitHubUserDetails.find(user => user.login === a.login).name === null)
       ? '' : this.gitHubUserDetails.find(user => user.login === a.login).name.toUpperCase();
       const nameB = (this.gitHubUserDetails.find(user => user.login === b.login).name === null)
@@ -76,14 +78,13 @@ export class GithubSearchComponent implements OnInit {
       return 0;
     });
   }
-
+  // Function to sort the name by descending order
   sortByNameDescending() {
     if (!this.gitHubUsers || this.gitHubUsers.length === 0) {
       console.log('No Data! Perform the Search First..');
       return;
     }
     this.gitHubUsers.sort((a: any, b: any) => {
-      console.log(a.login, b.login);
       const nameA = (this.gitHubUserDetails.find(user => user.login === a.login).name === null)
       ? '' : this.gitHubUserDetails.find(user => user.login === a.login).name.toUpperCase();
       const nameB = (this.gitHubUserDetails.find(user => user.login === b.login).name === null)
@@ -96,9 +97,8 @@ export class GithubSearchComponent implements OnInit {
       }
       return 0;
     });
-    console.log(this.gitHubUsers);
   }
-
+  // Function to sort the name by increasing score
   sortByIncreasingScore() {
     if (!this.gitHubUsers || this.gitHubUsers.length === 0) {
       console.log('No Data! Perform the Search First..');
@@ -114,7 +114,7 @@ export class GithubSearchComponent implements OnInit {
       return 0;
     });
   }
-
+  // Function to sort the name by decreasing score
   sortByDecreasingScore() {
     if (!this.gitHubUsers || this.gitHubUsers.length === 0) {
       console.log('No Data! Perform the Search First..');
@@ -130,10 +130,9 @@ export class GithubSearchComponent implements OnInit {
       return 0;
     });
   }
-
+  // Function to check whether details section is collapsed or not
   checkCollapse(index: number) {
     const collapseButtons = document.querySelectorAll('*[id^="detailsButton"]');
-    console.log(collapseButtons);
     for (let i = 0; i < this.isCollapsed.length; i++) {
       if (i !== index) {
         this.isCollapsed[i] = true;
@@ -151,7 +150,7 @@ export class GithubSearchComponent implements OnInit {
     }
     this.isCollapsed[index] = !this.isCollapsed[index];
   }
-
+  // Function to check the details section behavior on page change
   pageChange(event: any) {
     console.log('Currently in Page :- ' + event);
     const collapseButtons = document.querySelectorAll('*[id^="detailsButton"]');
