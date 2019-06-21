@@ -70,8 +70,8 @@
           <a [attr.href]="user.html_url" target="_blank">{{
             user?.html_url
           }}</a>
-          ➡️ Score: {{ user?.score | number: "1.0-0" }}
         </h6>
+        <h6>➡️ Score: {{ user?.score | number: "1.0-0" }}</h6>
         <div class="dataSection">
           <div>
             <span
@@ -131,25 +131,27 @@
       [(page)]="page"
       [pageSize]="pageSize"
       [collectionSize]="gitHubUsers.length"
+      [maxSize]="7"
+      [boundaryLinks]="true"
+      [ellipses]="false"
       (pageChange)="pageChange($event)"
     ></ngb-pagination>
   </div>
 </div>
 <div class="clickOnSearch" *ngIf="!gitHubDataFromAPI">
-  <pre>
-Click 
-on 
-Search!🔎
-Type Something and Press Enter! 
-  </pre></div>
+  <h1>Click</h1>
+  <h1>On</h1>
+  <h1>Search!🔎</h1>
+  <h1>Type Something and Press Enter!</h1>
+</div>
 <ngx-spinner
-bdOpacity="0.9"
-bdColor="#333"
-size="medium"
-color="#fff"
-type="timer"
-name="fullScreenSpinner"
-[fullScreen]="true"
+  bdOpacity="0.9"
+  bdColor="#333"
+  size="medium"
+  color="#fff"
+  type="timer"
+  name="fullScreenSpinner"
+  [fullScreen]="true"
 >
-<p style="color: white">Searching Lots of GitHub Users 😴...</p>
+  <p style="color: white">Searching Lots of GitHub Users 😴...</p>
 </ngx-spinner>
